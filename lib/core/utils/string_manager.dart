@@ -38,7 +38,7 @@ Please enter your code that send to your
   static const String dontRecieveCode = "Don't recieved code?";
   static const String resend = "Resend";
   static const String pleaseEnterEmailsAssociatedToUrAccount =
-      ''' Please enter your email associated to 
+      ''' Please enter your email associated to
 your account''';
   static const String continu = "Continue";
   static const String newPassword = "New Password";
@@ -76,7 +76,7 @@ number at least''';
   static const String phoneNumberCannotBeMoreThan20Characters =
       "Phone number cannot be more than 20 characters";
 
-  static const String  passwordMustContainAtLeastOneSpecialCharacter =
+  static const String passwordMustContainAtLeastOneSpecialCharacter =
       "Password Must Contain At Least One Special Character";
 
   /* -------------------------------------------------------------------------- */

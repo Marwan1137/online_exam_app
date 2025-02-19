@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam_app/core/theme/colors_manager.dart';
+import 'package:online_exam_app/core/utils/text_style_manger.dart';
 
 class MyThemeData {
   static ThemeData LightTheme = ThemeData(
       scaffoldBackgroundColor: Colors.white,
-      primaryColor: app_colors.blue_base,
+      primaryColor: AppColors.blue_base,
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(
           fontSize: 34,
@@ -35,52 +36,48 @@ class MyThemeData {
         fillColor: Colors.white,
         filled: true,
       ),
-      secondaryHeaderColor: app_colors.black_base,
+      secondaryHeaderColor: AppColors.black_base,
       appBarTheme: AppBarTheme(
           centerTitle: false,
-          color: app_colors.white,
+          color: AppColors.white,
           elevation: 0,
           iconTheme: IconThemeData(size: 35, color: Colors.black),
           shadowColor: Colors.transparent,
-          titleTextStyle: TextStyle(
-            color: app_colors.black_base,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-          )),
+          titleTextStyle: AppTextStyle.medium20),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        selectedItemColor: app_colors.blue_base,
-        unselectedItemColor: app_colors.black_30,
+        selectedItemColor: AppColors.blue_base,
+        unselectedItemColor: AppColors.black_30,
         backgroundColor: Colors.white,
         selectedIconTheme: IconThemeData(
-          color: app_colors.blue_base,
+          color: AppColors.blue_base,
         ),
         unselectedIconTheme: IconThemeData(),
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: TextStyle(
-          color: app_colors.blue_base,
+          color: AppColors.blue_base,
         ),
         unselectedLabelStyle: TextStyle(
-          color: app_colors.black_30,
+          color: AppColors.black_30,
         ),
         elevation: 0,
       ),
       textTheme: TextTheme(
         bodySmall: TextStyle(
-          color: app_colors.black_base,
+          color: AppColors.black_base,
           fontFamily: "ELMessiri",
           fontSize: 12,
           fontWeight: FontWeight.w300,
         ),
         bodyMedium: TextStyle(
-          color: app_colors.black_base,
+          color: AppColors.black_base,
           fontFamily: "ELMessiri",
           fontSize: 17,
           fontWeight: FontWeight.normal,
         ),
         bodyLarge: TextStyle(
-          color: app_colors.black_base,
+          color: AppColors.black_base,
           fontFamily: "ELMessiri",
           fontSize: 25,
           fontWeight: FontWeight.w700,

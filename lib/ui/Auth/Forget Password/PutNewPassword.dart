@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam_app/Shared/widgets/Validator.dart';
 import 'package:online_exam_app/Shared/widgets/custom_button.dart';
 import 'package:online_exam_app/Shared/widgets/custom_password_text_field.dart';
+import 'package:online_exam_app/Shared/widgets/toast_message.dart';
 import 'package:online_exam_app/core/theme/colors_manager.dart';
 import 'package:online_exam_app/core/utils/config.dart';
 import 'package:online_exam_app/core/utils/string_manager.dart';
+import 'package:online_exam_app/core/utils/text_style_manger.dart';
 import 'package:online_exam_app/ui/Auth/view_model/cubit/auth_cubit.dart';
 import 'package:online_exam_app/ui/Auth/view_model/cubit/auth_intent.dart';
 
@@ -45,7 +47,7 @@ class _PutNewPasswordState extends State<PutNewPassword> {
             context: context,
             builder: (context) => Center(
               child: CircularProgressIndicator(
-                color: app_colors.blue_base,
+                color: AppColors.blue_base,
               ),
             ),
           );
@@ -53,40 +55,9 @@ class _PutNewPasswordState extends State<PutNewPassword> {
 
         if (state is ResetPasswordSuccessState) {
           if (state.isChanged) {
-            showDialog(
-              context: context,
-              barrierDismissible: false, // Prevents closing the dialog manually
-              builder: (context) {
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  backgroundColor: Colors.green,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.check_circle, color: Colors.white, size: 50),
-                        SizedBox(height: 10),
-                        const Text(
-                          "Success!",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          "Your password has been updated.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 14, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
+            toastMessage(
+                message: "Success! \n Your password has been updated.",
+                tybeMessage: TybeMessage.positive);
 
             // Wait for 2 seconds, then navigate to login
             Future.delayed(Duration(seconds: 2), () {
@@ -98,15 +69,9 @@ class _PutNewPasswordState extends State<PutNewPassword> {
 
         if (state is ResetPasswordErrorState) {
           Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                "Error : ${state.message}",
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Colors.red,
-            ),
-          );
+          toastMessage(
+              message: "Error : ${state.message}",
+              tybeMessage: TybeMessage.negative);
         }
       },
       child: Scaffold(
@@ -126,7 +91,7 @@ class _PutNewPasswordState extends State<PutNewPassword> {
                   alignment: Alignment.center,
                   child: Text(
                     AppStrings.resetPassword,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    style: AppTextStyle.medium18,
                   ),
                 ),
                 Align(
@@ -134,6 +99,8 @@ class _PutNewPasswordState extends State<PutNewPassword> {
                   child: Text(
                     AppStrings.passwordvalid,
                     textAlign: TextAlign.center,
+                    style:
+                        AppTextStyle.regular14.copyWith(color: AppColors.grey),
                   ),
                 ),
                 /* Password Field */

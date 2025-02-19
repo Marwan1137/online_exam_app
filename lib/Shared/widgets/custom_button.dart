@@ -1,6 +1,8 @@
 // ignore_for_file: file_names, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:online_exam_app/core/theme/colors_manager.dart';
+import 'package:online_exam_app/core/utils/text_style_manger.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -17,14 +19,11 @@ class CustomButton extends StatelessWidget {
             onTap();
           },
           style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xff02369C), fixedSize: Size(100, 48)),
+              backgroundColor: Theme.of(context).primaryColor,
+              fixedSize: Size(100, 48)),
           child: Text(
             text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: AppTextStyle.medium18.copyWith(color: AppColors.white),
           )),
     );
   }

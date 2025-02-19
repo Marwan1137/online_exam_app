@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam_app/Shared/widgets/Validator.dart';
 import 'package:online_exam_app/Shared/widgets/custom_button.dart';
 import 'package:online_exam_app/Shared/widgets/custom_text_field.dart';
+import 'package:online_exam_app/Shared/widgets/toast_message.dart';
 import 'package:online_exam_app/core/theme/colors_manager.dart';
 import 'package:online_exam_app/core/utils/config.dart';
 import 'package:online_exam_app/core/utils/string_manager.dart';
+import 'package:online_exam_app/core/utils/text_style_manger.dart';
 import 'package:online_exam_app/ui/Auth/view_model/cubit/auth_cubit.dart';
 import 'package:online_exam_app/ui/Auth/view_model/cubit/auth_intent.dart';
 
@@ -44,7 +46,7 @@ class _EnterEmailForgetPasswordState extends State<EnterEmailForgetPassword> {
             context: context,
             builder: (context) => Center(
               child: CircularProgressIndicator(
-                color: app_colors.blue_base,
+                color: AppColors.blue_base,
               ),
             ),
           );
@@ -52,17 +54,18 @@ class _EnterEmailForgetPasswordState extends State<EnterEmailForgetPassword> {
 
         if (state is SendEmailVerificationSuccessState) {
           if (state.isSent) {
-            Navigator.pushNamed(context, AppStrings.emailVerificationScreenRoute,arguments: emailController.text,);
+            Navigator.pushNamed(
+              context,
+              AppStrings.emailVerificationScreenRoute,
+              arguments: emailController.text,
+            );
           }
         }
         if (state is SendEmailVerificationErrorState) {
           Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Error : ${state.message}",style:TextStyle(color: Colors.white),),
-              backgroundColor: Colors.red,
-            ),
-          );
+          toastMessage(
+              message: "Error : ${state.message}",
+              tybeMessage: TybeMessage.negative);
         }
       },
       child: Scaffold(
@@ -83,7 +86,7 @@ class _EnterEmailForgetPasswordState extends State<EnterEmailForgetPassword> {
                   alignment: Alignment.center,
                   child: Text(
                     AppStrings.forgetpassword,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    style: AppTextStyle.medium18,
                   ),
                 ),
                 SizedBox(height: Config.screenHight! * 0.012),
@@ -91,6 +94,8 @@ class _EnterEmailForgetPasswordState extends State<EnterEmailForgetPassword> {
                   alignment: Alignment.center,
                   child: Text(
                     AppStrings.pleaseEnterEmailsAssociatedToUrAccount,
+                    style:
+                        AppTextStyle.regular14.copyWith(color: AppColors.grey),
                     textAlign: TextAlign.center,
                   ),
                 ),

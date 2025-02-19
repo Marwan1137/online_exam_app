@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class app_colors {
+class AppColors {
   //==================================== const colors ====================================//
   static const white = Color(0xffF9F9F9);
   static const error = Color(0xffcC1010);

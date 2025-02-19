@@ -8,6 +8,7 @@ import 'package:online_exam_app/Shared/widgets/custom_password_text_field.dart';
 import 'package:online_exam_app/Shared/widgets/custom_text_field.dart';
 import 'package:online_exam_app/core/utils/config.dart';
 import 'package:online_exam_app/core/utils/string_manager.dart';
+import 'package:online_exam_app/core/utils/text_style_manger.dart';
 import 'package:online_exam_app/ui/Auth/view_model/cubit/auth_cubit.dart';
 import 'package:online_exam_app/ui/Auth/view_model/cubit/auth_intent.dart';
 import 'package:online_exam_app/Shared/widgets/toast_message.dart';
@@ -118,28 +119,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   validator: Validator.phoneNumber,
                 ),
                 CustomButton(
-                    onTap: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        AuthCubit.get(context).doIntent(SignUpIntent(
-                            username: userNameController.text,
-                            firstName: firstNameController.text,
-                            lastName: lastNameController.text,
-                            email: emailController.text,
-                            password: passwordController.text,
-                            confirmPassword: confirmPasswordController.text,
-                            phone: phoneNumberController.text));
-                        // log(AppStrings.signUpSuccessfully);
-                      }
-                    },
-                    text: AppStrings.signUp),
+                  onTap: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      AuthCubit.get(context).doIntent(SignUpIntent(
+                          username: userNameController.text,
+                          firstName: firstNameController.text,
+                          lastName: lastNameController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
+                          confirmPassword: confirmPasswordController.text,
+                          phone: phoneNumberController.text));
+                      // log(AppStrings.signUpSuccessfully);
+                    }
+                  },
+                  text: AppStrings.signUp,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       AppStrings.alreadyHaveAnAccount,
+                      style: AppTextStyle.regular16,
                     ),
                     TextButton(
-                      child: Text(AppStrings.login),
+                      child: Text(
+                        AppStrings.login,
+                        style: AppTextStyle.medium16.copyWith(
+                          color: Theme.of(context).primaryColor,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
                       onPressed: () {
                         Navigator.pushReplacementNamed(
                             context, AppStrings.loginScreenRoute);
