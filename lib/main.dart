@@ -11,6 +11,7 @@ import 'package:online_exam_app/ui/Auth/Sign_Up/sign_up_screen.dart';
 import 'package:online_exam_app/ui/home_screen.dart';
 import 'package:online_exam_app/ui/Profile_Details/profile_details_screen.dart';
 import 'package:online_exam_app/core/utils/string_manager.dart';
+import 'package:online_exam_app/ui/Profile_Details/viewmodel/profile_details_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,8 +53,10 @@ class MyApp extends StatelessWidget {
               create: (context) => getIt<AuthCubit>(),
               child: PutNewPassword(),
             ),
-        AppStrings.profileDetailsScreenRoute: (context) =>
-            ProfileDetailsScreen(),
+        AppStrings.profileDetailsScreenRoute: (context) => BlocProvider(
+              create: (context) => getIt<ProfileDetailsCubit>(),
+              child: const ProfileDetailsScreen(),
+            ),
       },
       initialRoute: initialToken != null
           ? AppStrings.homeScreenRoute // Navigate to home if token exists

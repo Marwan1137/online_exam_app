@@ -5,9 +5,9 @@ import 'package:injectable/injectable.dart';
 class ApiManager {
   late Dio dio;
 
-  // ApiManager() {
-  //   init();
-  // }
+  ApiManager() {
+    init();
+  }
 
   void init() {
     dio = Dio(
