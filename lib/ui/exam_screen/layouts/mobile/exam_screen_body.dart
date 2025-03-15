@@ -91,9 +91,12 @@ class ExamScreenBody extends StatelessWidget {
                             text: cubit.quesionCurrent == totalQuestions
                                 ? "Submit"
                                 : "Next",
-                            onTap: () {
+                            onTap: () async {
                               if (cubit.quesionCurrent == totalQuestions) {
                                 cubit.doIntent(CheckAnswersIntent());
+                                // Wait for the check answers to complete
+                                await Future.delayed(
+                                    Duration(milliseconds: 500));
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

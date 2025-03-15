@@ -73,6 +73,7 @@ class MyApp extends StatelessWidget {
         AppStrings.getAllExamsOnSubjectScreenRoute: (context) {
           final args =
               ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+
           return BlocProvider(
             create: (context) => getIt<AllExamsCubit>()
               ..doIntent(GetAllExamsOnSubjectIntent(args['subjectId']!)),

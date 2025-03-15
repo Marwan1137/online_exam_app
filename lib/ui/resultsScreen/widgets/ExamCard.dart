@@ -28,7 +28,7 @@ class ExamCard extends StatelessWidget {
             builder: (context) => BlocProvider(
               create: (context) => getIt<ResultCubit>()
                 ..doIntent(getResultByIdIntent(examId: result.examId ?? "")),
-              child: AnswersScreen(),
+              child: AnswersScreen(examId: result.examId ?? ""),
             ),
           ),
         );
