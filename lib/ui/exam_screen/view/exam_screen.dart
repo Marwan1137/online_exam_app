@@ -30,10 +30,8 @@ class _ExamScreenState extends State<ExamScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<QuestionsCubit>().doIntent(GetQuestionsIntent(
-            "670070a830a3c3c1944a9c63", // this id Contains questions
-            // "6700707030a3c3c1944a9c5d", // this id not Contains questions
-          ));
+      final examId = ModalRoute.of(context)?.settings.arguments as String;
+      context.read<QuestionsCubit>().doIntent(GetQuestionsIntent(examId));
     });
   }
 

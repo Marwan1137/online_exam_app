@@ -20,6 +20,7 @@ import 'package:online_exam_app/ui/explorescreen/explore_screen.dart';
 import 'package:online_exam_app/ui/explorescreen/viewmodel/cubit/explore_cubit.dart';
 import 'package:online_exam_app/ui/explorescreen/viewmodel/cubit/explore_intent.dart';
 import 'package:online_exam_app/ui/home_screen.dart';
+import 'package:online_exam_app/ui/start_exam/start_exam_screen.dart';
 
 class MyApp extends StatelessWidget {
   final String? initialToken;
@@ -58,6 +59,12 @@ class MyApp extends StatelessWidget {
               create: (context) => getIt<AuthCubit>(),
               child: PutNewPassword(),
             ),
+        AppStrings.startExamScreenRoute: (context) {
+          final args = ModalRoute.of(context)!.settings.arguments
+              as Map<String, dynamic>;
+          return StartExamScreen(exam: args['exam']);
+        },
+
         AppStrings.examScreenRoute: (context) => BlocProvider(
               create: (context) => getIt<QuestionsCubit>(),
               child: ExamScreen(),
@@ -75,6 +82,7 @@ class MyApp extends StatelessWidget {
         AppStrings.getAllExamsOnSubjectScreenRoute: (context) {
           final args =
               ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+
           return BlocProvider(
             create: (context) => getIt<AllExamsCubit>()
               ..doIntent(GetAllExamsOnSubjectIntent(args['subjectId']!)),

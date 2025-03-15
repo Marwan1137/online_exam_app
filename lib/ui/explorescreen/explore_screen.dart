@@ -91,7 +91,8 @@ class ExploreScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  onTap: () {
+                                  onTap: () async {
+                                    // First navigate to get all exams screen
                                     Navigator.pushNamed(
                                       context,
                                       AppStrings
