@@ -98,4 +98,5 @@ number at least''';
   static const String exploreScreenRoute = '/exploreScreen';
   static const String getAllExamsOnSubjectScreenRoute =
       '/getAllExamsOnSubjectScreen';
+  static const String startExamScreenRoute = '/exam-start-screen';
 }

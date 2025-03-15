@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_exam_app/core/utils/string_manager.dart';
 import 'package:online_exam_app/core/Di/di.dart';
 import 'package:online_exam_app/ui/all_exams_on_subject/viewmodel/get_all_exams_on_subject_cubit.dart';
 import 'package:online_exam_app/ui/all_exams_on_subject/viewmodel/get_all_exams_on_subject_state.dart';
@@ -80,10 +81,10 @@ class AllExamsOnSubjectScreen extends StatelessWidget {
                           ),
                         ),
                         onTap: () {
+
                           // Navigate to exam screen
                           log('Exam ID: ${exam.id}');
                           Navigator.push(
-                            context,
                             MaterialPageRoute(
                                 builder: (context) =>
                                     BlocProvider<QuestionsCubit>(
@@ -93,7 +94,6 @@ class AllExamsOnSubjectScreen extends StatelessWidget {
                                         examId: exam.id ?? '',
                                       ),
                                     )),
-                          );
                         },
                       ),
                     ),

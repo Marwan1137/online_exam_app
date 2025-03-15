@@ -17,7 +17,20 @@ class DatabaseHelper {
 
   /// Returns the database instance, initializing it if necessary.
   Future<Database> get database async {
-    userId = (await _tokenStorageService.getUserId()) ?? "";
+    // If userId is empty, try to get it from token storage
+    if (userId.isEmpty) {
+      final token = await _tokenStorageService.getToken();
+      if (token != null && token.isNotEmpty) {
+        // Extract user ID from token or use token hash as userId
+        userId = token.hashCode.toString();
+        print('📌 Using token-based userId: $userId');
+      } else {
+        // Use a temporary ID if no token is available
+        userId = 'temp_user';
+        print('⚠️ No token found, using temporary userId: $userId');
+      }
+    }
+
     if (_database != null) return _database!;
     _database = await _initDB();
     return _database!;
@@ -37,8 +50,9 @@ class DatabaseHelper {
 
   /// Creates a table for storing exam results for a specific user.
   Future<void> createUserTable() async {
-    String? userId = await _tokenStorageService.getUserId();
-    final db = await database;
+    final db = await database; // This will set the userId properly
+    print('📌 Creating table for userId: $userId'); // Debug print
+
     await db.execute('''
       CREATE TABLE IF NOT EXISTS results_$userId (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -100,19 +114,27 @@ class DatabaseHelper {
   /// Retrieves a specific exam result by its ID for a given user.
   Future<ResultModel?> getResultById(String examId) async {
     final db = await database;
-    await createUserTable();
+    await createUserTable(); // This creates the table with proper userId
 
     try {
+      // Add debug prints to track the process
+      print('📌 Attempting to fetch result for examId: $examId');
+      print('📌 Current userId: $userId');
+      print('📌 Table name: results_$userId');
+
       final List<Map<String, dynamic>> maps = await db.query(
-        'results_$userId',
+        'results_$userId', // This is correct, using the table with userId
         where: 'examId = ?',
         whereArgs: [examId],
       );
 
+      print('📌 Query result: $maps'); // Debug print
+
       if (maps.isNotEmpty) {
         try {
-          // Use the fromDatabaseJson method from ResultModel
-          return ResultModel.fromJson(maps.first);
+          final result = ResultModel.fromJson(maps.first);
+          print('📌 Parsed result: $result'); // Debug print
+          return result;
         } catch (e) {
           print('Error parsing ResultModel: $e');
           return null;

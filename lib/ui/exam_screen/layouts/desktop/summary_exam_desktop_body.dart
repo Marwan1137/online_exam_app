@@ -92,7 +92,7 @@ class SummaryExamDesktopBody extends StatelessWidget {
                     builder: (context) => BlocProvider(
                       create: (context) => getIt<ResultCubit>()
                         ..doIntent(getResultByIdIntent(examId: examId)),
-                      child: AnswersScreen(),
+                      child: AnswersScreen(examId: examId),
                     ),
                   ),
                 );

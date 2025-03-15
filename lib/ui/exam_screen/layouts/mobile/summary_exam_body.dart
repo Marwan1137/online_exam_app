@@ -85,16 +85,18 @@ class SummaryExamBody extends StatelessWidget {
           OutlinedFilledButton(
               text: "Show results",
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BlocProvider(
-                      create: (context) => getIt<ResultCubit>()
-                        ..doIntent(getResultByIdIntent(examId: examId)),
-                      child: AnswersScreen(),
+                if (examId.isNotEmpty) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                        create: (context) => getIt<ResultCubit>()
+                          ..doIntent(getResultByIdIntent(examId: examId)),
+                        child: AnswersScreen(examId: examId),  // Pass the examId here
+                      ),
                     ),
-                  ),
-                );
+                  );
+                }
               },
               borderSide: false),
           OutlinedFilledButton(

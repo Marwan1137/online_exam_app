@@ -18,6 +18,7 @@ class ResultCubit extends Cubit<ResultState> {
   GetResultsUseCase getResultsUseCase;
   GetResultsByIdUseCase getResultsByIdUseCase;
   DeleteResultUseCase deleteResultUseCase;
+  String? examId;
 
   ResultCubit(this.deleteResultUseCase, this.getResultsByIdUseCase,
       this.getResultsUseCase)
@@ -41,7 +42,6 @@ class ResultCubit extends Cubit<ResultState> {
     }
   }
 
-
   _getResultById({required getResultByIdIntent intent}) async {
     emit(GetResultByIdStateLoading());
     final response = await getResultsByIdUseCase.getResultById(
@@ -59,6 +59,7 @@ class ResultCubit extends Cubit<ResultState> {
         }
     }
   }
+
   _GetResults() async {
     emit(GetResultsStateLoading());
     final response = await getResultsUseCase.fetchResults();

@@ -4,16 +4,24 @@ import 'package:online_exam_app/Shared/widgets/toast_message.dart';
 import 'package:online_exam_app/core/theme/colors_manager.dart';
 import 'package:online_exam_app/data/model/questions_response/question.dart';
 import 'package:online_exam_app/ui/resultsScreen/VeiwModel/result_cubit.dart';
+import 'package:online_exam_app/ui/resultsScreen/VeiwModel/result_intent.dart';
 import 'package:online_exam_app/ui/resultsScreen/widgets/Answer%20Builder%20Result.dart';
 import 'package:online_exam_app/ui/resultsScreen/widgets/Result%20Choice%20Widget.dart';
 
 class AnswersScreen extends StatelessWidget {
-  const AnswersScreen({super.key});
+  final String examId;
+  const AnswersScreen({super.key, required this.examId});
 
   @override
-  @override
   Widget build(BuildContext context) {
-    ResultCubit.get(context);
+    // Initialize the cubit and trigger the state
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final cubit = ResultCubit.get(context);
+      if (cubit.state is ResultInitial) {
+        cubit.doIntent(getResultByIdIntent(examId: examId));
+      }
+      print("ExamId received: $examId");
+    });
 
     return Scaffold(
       appBar: AppBar(title: Text("Answers")),

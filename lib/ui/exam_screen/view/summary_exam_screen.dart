@@ -72,7 +72,7 @@ class SummaryExamScreen extends StatelessWidget {
                 mobileLayout: (context) => SummaryExamBody(
                       state: state,
                       examId: getQuestionsSuccessState
-                              .questionResponse?.questions?[0].exam?.id ??
+                              .questionResponse?.questions?.first.exam?.id ??
                           "",
                     ),
                 tabletLayout: (context) => SummaryExamBody(
